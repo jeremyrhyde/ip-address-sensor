@@ -12,14 +12,3 @@ lint-fix:
 
 lint-check:
 	black src --diff --check
-
-test: unit-tests
-
-unit-tests:
-	pytest tests
-
-integration-tests: integration-tests/tests/*
-	cd integration-tests && \
-	go test -c -o oak-integration-tests ./tests/ && \
-	mv oak-integration-tests ../
-	./oak-integration-tests -module ./local_run.sh
