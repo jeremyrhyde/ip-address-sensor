@@ -66,8 +66,8 @@ class IPSensor(Sensor, Reconfigurable, Stoppable):
 
     async def get_readings(self, extra: Optional[Dict[str, Any]] = None, **kwargs) -> Mapping[str, Any]:
         p = subprocess.run(self.cmd, stdout=subprocess.PIPE, shell=True)
-
-        return {"Tailscale IP": str(p.stdout)}
+        output = p.stdout.decode('utf-8').strip("\n")
+        return {"{}: ".format(self.cmd): output}
 
     async def get_geometries(self):
         raise NotImplementedError
